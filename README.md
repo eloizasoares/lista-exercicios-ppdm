@@ -1,17 +1,34 @@
-# lista_exercicios
+# Lista de Exercícios PPDM - Lição 14
 
-A new Flutter project.
+## Parte 1 - Respostas Conceituais
 
-## Getting Started
+### 1. Diferença entre desenvolvimento Nativo e Cross-Platform
 
-This project is a starting point for a Flutter application.
+O desenvolvimento nativo utiliza linguagens específicas para cada sistema operacional, como Kotlin ou Java para Android e Swift para iOS. Já o desenvolvimento Cross-Platform permite desenvolver um único aplicativo para várias plataformas utilizando a mesma base de código, como acontece no Flutter.
 
-A few resources to get you started if this is your first Flutter project:
+### 2. Diferença entre StatelessWidget e StatefulWidget
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+O StatelessWidget é um widget que não sofre alterações após ser criado, sendo indicado para interfaces estáticas.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+O StatefulWidget é um widget que pode ter seu conteúdo alterado durante a execução do aplicativo, atualizando a interface quando necessário.
+
+### 3. O que acontece quando chamamos setState()?
+
+Ao chamar o método `setState()`, o Flutter reconstrói a interface do `StatefulWidget`, exibindo na tela as alterações realizadas nas variáveis do estado.
+
+## Parte 2 - Tutorial Flutter
+
+O tutorial oficial do Flutter foi realizado com sucesso, utilizando os principais widgets como:
+
+- MaterialApp
+- Scaffold
+- AppBar
+- Center
+- Row
+- Column
+- Container
+- Botões
+- StatefulWidget
+- setState()
+
+O projeto foi executado e testado conforme o tutorial oficial.
