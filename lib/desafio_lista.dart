@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'widgets/cartao_estudante.dart';
 
 class DesafioLista extends StatefulWidget {
   const DesafioLista({super.key});
@@ -10,58 +9,120 @@ class DesafioLista extends StatefulWidget {
 }
 
 class _DesafioListaState extends State<DesafioLista> {
-  Future<void> limparConfiguracoes() async {
+  // EXERCÍCIO 02 - Tamanho da fonte
+  String tamanhoFonte = 'Médio';
+
+  @override
+  void initState() {
+    super.initState();
+    carregarConfiguracoes();
+  }
+
+  Future<void> carregarConfiguracoes() async {
     final prefs = await SharedPreferences.getInstance();
 
-    await prefs.clear();
+    setState(() {
+      tamanhoFonte = prefs.getString('tamanhoFonte') ?? 'Médio';
+    });
+  }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Configurações limpas!'),
-      ),
-    );
+  double obterTamanhoFonte() {
+    switch (tamanhoFonte) {
+      case 'Pequeno':
+        return 14;
+      case 'Grande':
+        return 22;
+      default:
+        return 18;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Carteirinhas dos Estudantes'),
+        title: Text(
+          'Configurações',
+          style: TextStyle(
+            fontSize: obterTamanhoFonte(),
+          ),
+        ),
       ),
-      body: SingleChildScrollView(
+      body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CartaoEstudante(
-              nome: 'Ana Silva',
-              curso: 'Desenvolvimento de Sistemas',
-              email: 'ana@email.com',
-              imagem: 'https://i.pravatar.cc/150?img=5',
+            Text(
+              'Tamanho da Fonte',
+              style: TextStyle(
+                fontSize: obterTamanhoFonte(),
+                fontWeight: FontWeight.bold,
+              ),
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 10),
 
-            CartaoEstudante(
-              nome: 'Carlos Santos',
-              curso: 'Desenvolvimento de Sistemas',
-              email: 'carlos@email.com',
-              imagem: 'https://i.pravatar.cc/150?img=12',
+            DropdownButton<String>(
+              value: tamanhoFonte,
+              isExpanded: true,
+              items: const [
+                DropdownMenuItem(
+                  value: 'Pequeno',
+                  child: Text('Pequeno'),
+                ),
+                DropdownMenuItem(
+                  value: 'Médio',
+                  child: Text('Médio'),
+                ),
+                DropdownMenuItem(
+                  value: 'Grande',
+                  child: Text('Grande'),
+                ),
+              ],
+              onChanged: (valor) async {
+                if (valor == null) return;
+
+                final prefs =
+                    await SharedPreferences.getInstance();
+
+                await prefs.setString(
+                  'tamanhoFonte',
+                  valor,
+                );
+
+                setState(() {
+                  tamanhoFonte = valor;
+                });
+              },
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 30),
 
-            CartaoEstudante(
-              nome: 'Mariana Oliveira',
-              curso: 'Desenvolvimento de Sistemas',
-              email: 'mariana@email.com',
-              imagem: 'https://i.pravatar.cc/150?img=47',
+            Text(
+              'Configurações',
+              style: TextStyle(
+                fontSize: obterTamanhoFonte(),
+                fontWeight: FontWeight.bold,
+              ),
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 15),
 
-            ElevatedButton(
-              onPressed: limparConfiguracoes,
-              child: const Text('Limpar Configurações'),
+            Text(
+              'Escolha o tamanho da fonte que deseja utilizar no aplicativo.',
+              style: TextStyle(
+                fontSize: obterTamanhoFonte(),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            Text(
+              'Tamanho selecionado: $tamanhoFonte',
+              style: TextStyle(
+                fontSize: obterTamanhoFonte(),
+              ),
             ),
           ],
         ),
