@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'widgets/cartao_estudante.dart';
 
-class DesafioLista extends StatelessWidget {
+class DesafioLista extends StatefulWidget {
   const DesafioLista({super.key});
+
+  @override
+  State<DesafioLista> createState() => _DesafioListaState();
+}
+
+class _DesafioListaState extends State<DesafioLista> {
+  Future<void> limparConfiguracoes() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.clear();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Configurações limpas!'),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +55,13 @@ class DesafioLista extends StatelessWidget {
               curso: 'Desenvolvimento de Sistemas',
               email: 'mariana@email.com',
               imagem: 'https://i.pravatar.cc/150?img=47',
+            ),
+
+            const SizedBox(height: 24),
+
+            ElevatedButton(
+              onPressed: limparConfiguracoes,
+              child: const Text('Limpar Configurações'),
             ),
           ],
         ),
