@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'desafio_lista.dart';
+import 'product_screen.dart';
 
 void main() {
   runApp(const MeuApp());
@@ -12,8 +12,16 @@ class MeuApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Atividade 013',
-      home: const DesafioLista(),
+      title: 'Produtos',
+
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blue,
+        ),
+        useMaterial3: true,
+      ),
+
+      home: const ProductScreen(),
     );
   }
 }
