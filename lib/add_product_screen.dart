@@ -11,18 +11,21 @@ class AddProductScreen extends StatefulWidget {
 class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController nomeController = TextEditingController();
   final TextEditingController precoController = TextEditingController();
+  final TextEditingController observadorController =
+      TextEditingController();
 
   void cadastrarProduto() {
     String nome = nomeController.text;
+    String observador = observadorController.text;
 
     double? preco = double.tryParse(
       precoController.text.replaceAll(',', '.'),
     );
 
-    if (nome.isEmpty || preco == null) {
+    if (nome.isEmpty || preco == null || observador.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Preencha os campos corretamente.'),
+          content: Text('Preencha todos os campos corretamente.'),
         ),
       );
       return;
@@ -31,6 +34,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     Product produto = Product(
       name: nome,
       price: preco,
+      observador: observador,
     );
 
     Navigator.pop(context, produto);
@@ -39,12 +43,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void limparFormulario() {
     nomeController.clear();
     precoController.clear();
+    observadorController.clear();
   }
 
   @override
   void dispose() {
     nomeController.dispose();
     precoController.dispose();
+    observadorController.dispose();
     super.dispose();
   }
 
@@ -73,6 +79,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: 'Preço',
+                border: OutlineInputBorder(),
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            TextField(
+              controller: observadorController,
+              decoration: const InputDecoration(
+                labelText: 'Observador',
                 border: OutlineInputBorder(),
               ),
             ),

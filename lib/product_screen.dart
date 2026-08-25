@@ -14,14 +14,17 @@ class _ProductScreenState extends State<ProductScreen> {
     Product(
       name: 'Notebook',
       price: 3500.00,
+      observador: 'Sistema',
     ),
     Product(
       name: 'Mouse',
       price: 80.00,
+      observador: 'Sistema',
     ),
     Product(
       name: 'Teclado',
       price: 150.00,
+      observador: 'Sistema',
     ),
   ];
 
@@ -55,7 +58,8 @@ class _ProductScreenState extends State<ProductScreen> {
             leading: const Icon(Icons.shopping_cart),
             title: Text(produto.name),
             subtitle: Text(
-              'R\$ ${produto.price.toStringAsFixed(2)}',
+              'R\$ ${produto.price.toStringAsFixed(2)} - '
+              'Observador: ${produto.observador}',
             ),
           );
         },
