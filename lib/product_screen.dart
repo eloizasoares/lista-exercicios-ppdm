@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'add_product_screen.dart';
 import 'product.dart';
 
 class ProductScreen extends StatefulWidget {
@@ -11,18 +10,25 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   final List<Product> produtos = [
-    Product(name: 'Notebook', price: 3500.00),
-    Product(name: 'Mouse', price: 80.00),
-    Product(name: 'Teclado', price: 150.00),
+    Product(
+      name: 'Notebook',
+      price: 3500.00,
+    ),
+    Product(
+      name: 'Mouse',
+      price: 80.00,
+    ),
+    Product(
+      name: 'Teclado',
+      price: 150.00,
+    ),
   ];
 
   Future<void> adicionarProduto() async {
-    final Product? novoProduto = await Navigator.push(
+    final Product? novoProduto = await Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (context) => const AddProductScreen(),
-      ),
-    );
+      '/adicionar',
+    ) as Product?;
 
     if (novoProduto != null) {
       setState(() {
@@ -44,8 +50,12 @@ class _ProductScreenState extends State<ProductScreen> {
           final produto = produtos[index];
 
           return ListTile(
-            leading: const Icon(Icons.shopping_cart),
-            title: Text(produto.name),
+            leading: const Icon(
+              Icons.shopping_cart,
+            ),
+            title: Text(
+              produto.name,
+            ),
             subtitle: Text(
               'R\$ ${produto.price.toStringAsFixed(2)}',
             ),
@@ -55,7 +65,9 @@ class _ProductScreenState extends State<ProductScreen> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: adicionarProduto,
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+        ),
       ),
     );
   }

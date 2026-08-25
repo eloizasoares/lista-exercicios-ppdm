@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'product_screen.dart';
+import 'add_product_screen.dart';
 
 void main() {
   runApp(const MeuApp());
@@ -12,6 +13,7 @@ class MeuApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+
       title: 'Produtos',
 
       theme: ThemeData(
@@ -21,7 +23,12 @@ class MeuApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      home: const ProductScreen(),
+      initialRoute: '/',
+
+      routes: {
+        '/': (context) => const ProductScreen(),
+        '/adicionar': (context) => const AddProductScreen(),
+      },
     );
   }
 }
