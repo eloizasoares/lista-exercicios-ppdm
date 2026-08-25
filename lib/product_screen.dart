@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'product.dart';
+import 'add_product_screen.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -25,10 +26,12 @@ class _ProductScreenState extends State<ProductScreen> {
   ];
 
   Future<void> adicionarProduto() async {
-    final Product? novoProduto = await Navigator.pushNamed(
+    final Product? novoProduto = await Navigator.push(
       context,
-      '/adicionar',
-    ) as Product?;
+      MaterialPageRoute(
+        builder: (context) => const AddProductScreen(),
+      ),
+    );
 
     if (novoProduto != null) {
       setState(() {
@@ -43,31 +46,23 @@ class _ProductScreenState extends State<ProductScreen> {
       appBar: AppBar(
         title: const Text('Lista de Produtos'),
       ),
-
       body: ListView.builder(
         itemCount: produtos.length,
         itemBuilder: (context, index) {
           final produto = produtos[index];
 
           return ListTile(
-            leading: const Icon(
-              Icons.shopping_cart,
-            ),
-            title: Text(
-              produto.name,
-            ),
+            leading: const Icon(Icons.shopping_cart),
+            title: Text(produto.name),
             subtitle: Text(
               'R\$ ${produto.price.toStringAsFixed(2)}',
             ),
           );
         },
       ),
-
       floatingActionButton: FloatingActionButton(
         onPressed: adicionarProduto,
-        child: const Icon(
-          Icons.add,
-        ),
+        child: const Icon(Icons.add),
       ),
     );
   }
