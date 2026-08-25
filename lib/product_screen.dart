@@ -28,8 +28,22 @@ class _ProductScreenState extends State<ProductScreen> {
     ),
   ];
 
-  Future<void> adicionarProduto() async {
-    final Product? novoProduto = await Navigator.push(
+  void adicionarProduto(Product novoProduto) {
+    setState(() {
+      produtos.add(novoProduto);
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Produto cadastrado! Total: ${produtos.length}',
+        ),
+      ),
+    );
+  }
+
+  void abrirTelaAdicionarProduto() async {
+    final novoProduto = await Navigator.push<Product>(
       context,
       MaterialPageRoute(
         builder: (context) => const AddProductScreen(),
@@ -37,9 +51,7 @@ class _ProductScreenState extends State<ProductScreen> {
     );
 
     if (novoProduto != null) {
-      setState(() {
-        produtos.add(novoProduto);
-      });
+      adicionarProduto(novoProduto);
     }
   }
 
@@ -58,14 +70,13 @@ class _ProductScreenState extends State<ProductScreen> {
             leading: const Icon(Icons.shopping_cart),
             title: Text(produto.name),
             subtitle: Text(
-              'R\$ ${produto.price.toStringAsFixed(2)} - '
-              'Observador: ${produto.observador}',
+              'R\$ ${produto.price.toStringAsFixed(2)} - Observador: ${produto.observador}',
             ),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: adicionarProduto,
+        onPressed: abrirTelaAdicionarProduto,
         child: const Icon(Icons.add),
       ),
     );
